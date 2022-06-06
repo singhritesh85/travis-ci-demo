@@ -1,0 +1,29 @@
+version: '3'
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: mycontainer-01
+    image: myimage:1.06
+    restart: always
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: us-east-2
+        awslogs-group: myLogGroup
+        awslogs-create-group: "true"
+        awslogs-stream: mylog-stream
+    ports: 
+    - "8081:8080"
+
+    volumes: 
+    - myvol:/test
+    networks:
+    - mynet
+
+volumes:
+  myvol:
+networks:
+  mynet:
+    driver: bridge

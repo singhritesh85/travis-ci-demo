@@ -1,0 +1,10 @@
+sudo: required
+services:
+- docker
+
+before_install:
+- docker-compose -p test build --no-cache
+
+script:
+- docker-compose -p test down
+- docker-compose -p test up -d
